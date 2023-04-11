@@ -1,12 +1,23 @@
+// biblioteca do npm para enviar arquivos em requisicoes com mais facilidade
 const FormData = require("form-data");
+
+// bilioteca para criar requisições http
 const axios = require("axios");
+
+// biblioteca para ler arquivos
 const fs = require('fs');
 
+// cria um objeto do tipo FormData
 const data = new FormData();
+
+// adiciona o arquivo no objeto
 data.append("image", fs.createReadStream('./rosto.png'));
+
+// adiciona os parametros da requisição
 data.append("max_face_num", "1");
 data.append("face_field", "color,smooth,acnespotmole,wrinkle,eyesattr,blackheadpore,skinface,skinquality");
 
+// cria um objeto com as opções da requisição
 const options = {
   method: 'POST',
   url: 'https://skin-analysis.p.rapidapi.com/face/effect/skin_analyze',
@@ -18,10 +29,14 @@ const options = {
   data: data
 };
 
+// envia a requisição
 axios.request(options).then(function (response) {
-    fs.writeFileSync('./resposta', JSON.stringify(response.data));
+
+  // salva a resposta em um arquivo
+  fs.writeFileSync('./resposta', JSON.stringify(response.data));
 
 	console.log(response.data);
 }).catch(function (error) {
+  
 	console.error(error);
 });
