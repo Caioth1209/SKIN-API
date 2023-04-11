@@ -10,10 +10,8 @@ const fs = require('fs');
 // cria um objeto do tipo FormData
 const data = new FormData();
 
-// adiciona o arquivo no objeto
-data.append("image", fs.createReadStream('./rosto.png'));
-
 // adiciona os parametros da requisição
+data.append("image", fs.createReadStream('./rosto.png'));
 data.append("max_face_num", "1");
 data.append("face_field", "color,smooth,acnespotmole,wrinkle,eyesattr,blackheadpore,skinface,skinquality");
 
@@ -37,6 +35,6 @@ axios.request(options).then(function (response) {
 
 	console.log(response.data);
 }).catch(function (error) {
-  
+
 	console.error(error);
 });
